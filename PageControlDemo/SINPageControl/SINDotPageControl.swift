@@ -60,8 +60,9 @@ public class SINDotPageControl: SINPageControl {
                 
                 let button = UIButton(type: .custom)
                 button.tag = index
-                button.setImage(self.indicatorImage, for: .normal)
-                button.setImage(self.currentIndicatorImage, for: [.selected,.highlighted])
+                button.setBackgroundImage(self.indicatorImage, for: .normal)
+                button.setBackgroundImage(self.currentIndicatorImage, for: .highlighted)
+                button.setBackgroundImage(self.currentIndicatorImage, for: .selected)
                 button.addTarget(self, action: #selector(buttonDidClick(_:)), for: .touchDown)
                 button.layer.masksToBounds = true
                 button.layer.cornerRadius = self.indicatorCorner
@@ -167,7 +168,7 @@ public class SINDotPageControl: SINPageControl {
 
     override public var indicatorImage: UIImage? {
         didSet {
-            setImage(with: nil, and: self.indicatorImage)
+            setImage(with: self.indicatorImage, and: nil)
         }
     }
 
@@ -203,6 +204,7 @@ public class SINDotPageControl: SINPageControl {
     override init(style: SINPageControlStyle, numberOfPages: Int) {
         super.init(style: style, numberOfPages: numberOfPages)
         self.numberOfPages = numberOfPages
+        self.currentPage = 0
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -213,9 +215,11 @@ public class SINDotPageControl: SINPageControl {
     @objc func buttonDidClick(_ sender: UIButton) {
         self.currentPage = sender.tag
     }
+}
 
+extension SINDotPageControl {
     public func setImage(with color: UIColor?, and currentColor: UIColor?) {
-
+        
         if let color = color {
             let image = UIImage.sin_image(color: color, size: self.indicatorSize) ?? nil
             setImage(with: image, and: nil)
@@ -226,9 +230,7 @@ public class SINDotPageControl: SINPageControl {
             setImage(with: nil, and: currentImage)
         }
     }
-}
-
-extension SINDotPageControl {
+    
     fileprivate func setImage(with image: UIImage?, and currentImage: UIImage?) {
         
         if image == nil && currentImage == nil {
@@ -239,10 +241,11 @@ extension SINDotPageControl {
 
         for button in buttonArray {
             if let indicatorImage = image {
-                button.setImage(indicatorImage, for: .normal)
+                button.setBackgroundImage(indicatorImage, for: .normal)
             }
             if let currentIndicatorImage = currentImage {
-                button.setImage(currentIndicatorImage, for: [.selected, .highlighted])
+                button.setBackgroundImage(currentIndicatorImage, for: .highlighted)
+                button.setBackgroundImage(currentIndicatorImage, for: .selected)
             }
         }
 
