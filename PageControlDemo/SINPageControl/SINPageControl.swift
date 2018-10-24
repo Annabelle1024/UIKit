@@ -39,6 +39,7 @@ public struct SINPageDefaultImage {
     }
 }
 
+
 public class SINPageControl: UIControl {
     
 

@@ -10,11 +10,12 @@ import SnapKit
 
 public class SINDotPageControl: SINPageControl {
     
-    //MARK: Computed Properties
+    //MARK: Stored Properties
     var selectedButton = UIButton()
     var leftMarginConstraints = [ConstraintMakerEditable]()
     var containerView = UIView()
     
+    //MARK: Computed Properties
     var indicatorCorner: CGFloat {
         if self.ignoreCornerRadius {
             return 0.0
@@ -156,25 +157,25 @@ public class SINDotPageControl: SINPageControl {
 
     override public var indicatorColor: UIColor? {
         didSet {
-            setImage(with: self.indicatorColor, and: nil)
+            p_setImage(with: self.indicatorColor, and: nil)
         }
     }
 
     override public var currentIndicatorColor: UIColor? {
         didSet {
-           setImage(with: nil, and: self.currentIndicatorColor)
+           p_setImage(with: nil, and: self.currentIndicatorColor)
         }
     }
 
     override public var indicatorImage: UIImage? {
         didSet {
-            setImage(with: self.indicatorImage, and: nil)
+            p_setImage(with: self.indicatorImage, and: nil)
         }
     }
 
     override public var currentIndicatorImage: UIImage? {
         didSet {
-            setImage(with: nil, and: self.currentIndicatorImage)
+            p_setImage(with: nil, and: self.currentIndicatorImage)
         }
     }
 
@@ -210,28 +211,29 @@ public class SINDotPageControl: SINPageControl {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    //MARK: Func
+}
+
+extension SINPageControl {
     @objc func buttonDidClick(_ sender: UIButton) {
         self.currentPage = sender.tag
     }
 }
 
 extension SINDotPageControl {
-    public func setImage(with color: UIColor?, and currentColor: UIColor?) {
+    fileprivate func p_setImage(with color: UIColor?, and currentColor: UIColor?) {
         
         if let color = color {
             let image = UIImage.sin_image(color: color, size: self.indicatorSize) ?? nil
-            setImage(with: image, and: nil)
+            p_setImage(with: image, and: nil)
         }
         
         if let currentColor = currentColor {
             let currentImage = UIImage.sin_image(color: currentColor, size: self.currentIndicatorSize) ?? nil
-            setImage(with: nil, and: currentImage)
+            p_setImage(with: nil, and: currentImage)
         }
     }
     
-    fileprivate func setImage(with image: UIImage?, and currentImage: UIImage?) {
+    fileprivate func p_setImage(with image: UIImage?, and currentImage: UIImage?) {
         
         if image == nil && currentImage == nil {
             return
