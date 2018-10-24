@@ -12,19 +12,15 @@ public class SINDotPageControl: SINPageControl {
     
     //MARK: Lazy
     var selectedButton = UIButton()
+    var leftMarginConstraints = [ConstraintMakerEditable]()
     
-    lazy var containerView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .horizontal
-        view.alignment = .center
-        view.spacing = self.indicatorSpace
-        view.distribution = .fillEqually
+    lazy var containerView: UIView = {
+        let view = UIView()
         self.addSubview(view)
         
         view.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
-            make.height.equalTo(self.currentIndicatorSize.height)
-            make.width.equalToSuperview()
+            make.height.equalTo(max(self.indicatorSize.height, self.currentIndicatorSize.height))
         }
         return view
     }()
@@ -62,6 +58,7 @@ public class SINDotPageControl: SINPageControl {
                 subview.removeFromSuperview()
             }
             
+            var lastButton = UIButton()
             for index in 0..<self.numberOfPages {
                 
                 let button = UIButton(type: .custom)
@@ -70,8 +67,25 @@ public class SINDotPageControl: SINPageControl {
                 button.setImage(self.currentIndicatorImage, for: [.selected,.highlighted])
                 button.addTarget(self, action: #selector(buttonDidClick(_:)), for: .touchDown)
                 button.layer.masksToBounds = true
+                button.layer.cornerRadius = self.indicatorCorner
+                self.containerView.addSubview(button)
                 
-                self.containerView.addArrangedSubview(button)
+                button.snp.makeConstraints { (make) in
+                    make.centerY.equalTo(self.containerView)
+                    make.size.equalTo(CGSize(width: self.indicatorSize.width, height: self.indicatorSize.height))
+                    if index == 0 {
+                        make.left.equalTo(0)
+                    } else {
+                        let constraint = make.left.equalTo(lastButton.snp.right).offset(self.indicatorSpace)
+                        self.leftMarginConstraints.append(constraint)
+                    }
+                }
+                
+                lastButton = button
+            }
+            
+            lastButton.snp.makeConstraints { (make) in
+                make.right.equalTo(0)
             }
             
             self.isHidden = (numberOfPages == 1 && self.hideForSinglePage)
@@ -98,9 +112,9 @@ public class SINDotPageControl: SINPageControl {
             }
             
             //更新containerview高度
+            let height = self.currentIndicatorSize.height > 0 ? self.currentIndicatorSize.height : SINPageDefaultSize.current.height
             self.containerView.snp.updateConstraints { (make) in
-                make.height.equalTo(self.currentIndicatorSize.height)
-                make.width.equalToSuperview()
+                make.height.equalTo(height)
             }
             
             if oldValue != self.currentPage {
@@ -181,8 +195,8 @@ public class SINDotPageControl: SINPageControl {
             button.layer.cornerRadius = (self.currentPage == button.tag) ? self.currentIndicatorCorner : self.indicatorCorner
         }
         
-        self.containerView.snp.updateConstraints { (make) in
-            make.height.equalTo(max(self.indicatorSize.height, self.currentIndicatorSize.height))
+        for constraint in self.leftMarginConstraints {
+            constraint.offset(self.indicatorSpace)
         }
     }
     

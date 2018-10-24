@@ -48,14 +48,14 @@ public class SINPageControl: UIControl {
     // 设置numberOfPages会移除indicator再重新创建添加，numberOfPages应该大于0
     public var numberOfPages: Int = 0 {
         didSet {
-            self.isHidden = oldValue <= 0
+            self.isHidden = (self.numberOfPages <= 0)
         }
     }
     
     // hide the the indicator if there is only one page. default is NO
     public var hideForSinglePage: Bool = false {
         didSet {
-            self.isHidden = (1 == self.numberOfPages && oldValue)
+            self.isHidden = (1 == self.numberOfPages && self.hideForSinglePage)
         }
     }
     
