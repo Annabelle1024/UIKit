@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         let point = touches.first?.location(in: self.view)
         
         pageControl.snp.makeConstraints { (make) in
-            make.center.equalTo(point ?? self.view.snp.center)
+            make.center.equalTo(point ?? self.view)
             make.size.equalTo(CGSize(width: 300, height: 200))
         }
     }
