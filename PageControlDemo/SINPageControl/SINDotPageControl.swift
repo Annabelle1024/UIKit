@@ -181,8 +181,8 @@ public class SINDotPageControl: SINPageControl {
         }
     }
     
-    override init(controlStyle: SINPageControlStyle, numberOfPages: Int) {
-        super.init(controlStyle: controlStyle, numberOfPages: numberOfPages)
+    override init(style: SINPageControlStyle, numberOfPages: Int) {
+        super.init(style: style, numberOfPages: numberOfPages)
         self.numberOfPages = numberOfPages
     }
     
@@ -206,12 +206,6 @@ public class SINDotPageControl: SINPageControl {
             let currentImage = UIImage.sin_image(color: currentColor) ?? nil
             p_setImage(with: nil, and: currentImage)
         }
-        
-//        if color != nil || currentColor != nil {
-//            let image = UIImage.sin_image(color: color) ?? nil
-//            let currentImage = UIImage.sin_image(color: currentColor) ?? nil
-//            p_setImage(with: image, and: currentImage)
-//        }
     }
     
     fileprivate func p_setImage(with image: UIImage?, and currentImage: UIImage?) {
@@ -220,13 +214,8 @@ public class SINDotPageControl: SINPageControl {
             return
         }
         
-        if let indicatorImage = image {
-            self.indicatorImage = indicatorImage
-        }
+        // OC里面这里记录了self.indicatorImage和self.currentIndicatorImage, 这里需要吗? 如果需要该怎么记录
         
-        if let currentIndicatorImage = currentImage {
-            self.currentIndicatorImage = currentIndicatorImage
-        }
         
         for button in buttonArray {
             if let indicatorImage = image {
@@ -236,6 +225,25 @@ public class SINDotPageControl: SINPageControl {
                 button.setImage(currentIndicatorImage, for: [.selected,.highlighted])
             }
         }
+        
+     
+        
+//        if let indicatorImage = image {
+//            self.indicatorImage = indicatorImage
+//        }
+//
+//        if let currentIndicatorImage = currentImage {
+//            self.currentIndicatorImage = currentIndicatorImage
+//        }
+//
+//        for button in buttonArray {
+//            if let indicatorImage = image {
+//                button.setImage(indicatorImage, for: .normal)
+//            }
+//            if let currentIndicatorImage = currentImage {
+//                button.setImage(currentIndicatorImage, for: [.selected,.highlighted])
+//            }
+//        }
     }
     
 }

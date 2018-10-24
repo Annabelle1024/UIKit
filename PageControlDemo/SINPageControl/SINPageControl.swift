@@ -23,19 +23,19 @@ public struct SINPageDefaultColor {
 
 public struct SINPageDefaultSize {
     public static var current: CGSize {
-        return CGSize(width: 6, height: 6)
+        return CGSize(width: 16, height: 16)
     }
     public static var other: CGSize {
-        return CGSize(width: 4, height: 4)
+        return CGSize(width: 14, height: 14)
     }
 }
 
 public struct SINPageDefaultImage {
     public static var other: UIImage {
-        return UIImage.sin_image(color: UIColor.lightGray, size: CGSize(width: 4, height: 4)) ?? UIImage()
+        return UIImage.sin_image(color: UIColor.lightGray, size: CGSize(width: 14, height: 14)) ?? UIImage()
     }
     public static var current: UIImage {
-        return UIImage.sin_image(color: UIColor.yellow, size: CGSize(width: 6, height: 6)) ?? UIImage()
+        return UIImage.sin_image(color: UIColor.yellow, size: CGSize(width: 16, height: 16)) ?? UIImage()
     }
 }
 
@@ -53,9 +53,6 @@ public class SINPageControl: UIControl {
                 return
             }
             self.isHidden = false
-            if self.numberOfPages == oldValue {
-                return
-            }
         }
     }
     
@@ -127,16 +124,16 @@ public class SINPageControl: UIControl {
 
     
     //MARK: > init
-    public class func pageControl(controlStyle style: SINPageControlStyle, numberOfPages pages: Int) -> SINPageControl {
+    public class func pageControl(style: SINPageControlStyle, numberOfPages pages: Int) -> SINPageControl {
         switch (style) {
         case .dot:
-            return SINDotPageControl.init(controlStyle: style, numberOfPages: pages)
+            return SINDotPageControl.init(style: style, numberOfPages: pages)
         case .numerical:
-            return SINNumericalPageControl.init(controlStyle: style, numberOfPages: pages)
+            return SINNumericalPageControl.init(style: style, numberOfPages: pages)
         }
     }
     
-    init(controlStyle: SINPageControlStyle, numberOfPages: Int) {
+    init(style: SINPageControlStyle, numberOfPages: Int) {
         super.init(frame: .zero)
         self.numberOfPages = numberOfPages
     }

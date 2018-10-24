@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        let pageControl =  SINPageControl.pageControl(controlStyle: .dot, numberOfPages: 10)
+        let pageControl =  SINPageControl.pageControl(style: .dot, numberOfPages: 10)
         pageControl.currentIndicatorColor = UIColor.yellow
         pageControl.indicatorColor = UIColor.lightGray
         pageControl.currentPage = 2
