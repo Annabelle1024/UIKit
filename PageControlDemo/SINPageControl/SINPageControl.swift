@@ -48,18 +48,14 @@ public class SINPageControl: UIControl {
     // 设置numberOfPages会移除indicator再重新创建添加，numberOfPages应该大于0
     public var numberOfPages: Int = 0 {
         didSet {
-            if self.numberOfPages <= 0 {
-                self.isHidden = true
-                return
-            }
-            self.isHidden = false
+            self.isHidden = oldValue <= 0
         }
     }
     
     // hide the the indicator if there is only one page. default is NO
     public var hideForSinglePage: Bool = false {
         didSet {
-            self.isHidden = (1 == self.numberOfPages && self.hideForSinglePage)
+            self.isHidden = (1 == self.numberOfPages && oldValue)
         }
     }
     
@@ -127,9 +123,9 @@ public class SINPageControl: UIControl {
     public class func pageControl(style: SINPageControlStyle, numberOfPages pages: Int) -> SINPageControl {
         switch (style) {
         case .dot:
-            return SINDotPageControl.init(style: style, numberOfPages: pages)
+            return SINDotPageControl(style: style, numberOfPages: pages)
         case .numerical:
-            return SINNumericalPageControl.init(style: style, numberOfPages: pages)
+            return SINNumericalPageControl(style: style, numberOfPages: pages)
         }
     }
     

@@ -62,13 +62,14 @@ public class SINDotPageControl: SINPageControl {
                 subview.removeFromSuperview()
             }
             
-            for index in 0 ..< self.numberOfPages {
+            for index in 0..<self.numberOfPages {
                 
                 let button = UIButton(type: .custom)
                 button.tag = index
                 button.setImage(self.indicatorImage, for: .normal)
                 button.setImage(self.currentIndicatorImage, for: [.selected,.highlighted])
                 button.addTarget(self, action: #selector(buttonDidClick(_:)), for: .touchDown)
+                button.layer.masksToBounds = true
                 
                 self.containerView.addArrangedSubview(button)
             }
@@ -91,7 +92,7 @@ public class SINDotPageControl: SINPageControl {
             }
             
             currentBtn.isSelected = true
-            currentBtn.layer.cornerRadius = self.currentIndicatorCorner
+//            currentBtn.layer.cornerRadius = self.currentIndicatorCorner
             currentBtn.snp.updateConstraints { (make) in
                 make.size.equalTo(self.currentIndicatorSize)
             }
@@ -140,25 +141,25 @@ public class SINDotPageControl: SINPageControl {
     
     override public var indicatorColor: UIColor? {
         didSet {
-            p_setImage(with: self.indicatorColor, and: nil)
+            setImage(with: self.indicatorColor, and: nil)
         }
     }
     
     override public var currentIndicatorColor: UIColor? {
         didSet {
-           p_setImage(with: nil, and: self.currentIndicatorColor)
+           setImage(with: nil, and: self.currentIndicatorColor)
         }
     }
     
     override public var indicatorImage: UIImage? {
         didSet {
-            p_setImage(with: nil, and: self.indicatorImage)
+            setImage(with: nil, and: self.indicatorImage)
         }
     }
     
     override public var currentIndicatorImage: UIImage? {
         didSet {
-            p_setImage(with: nil, and: self.currentIndicatorImage)
+            setImage(with: nil, and: self.currentIndicatorImage)
         }
     }
     
@@ -168,7 +169,7 @@ public class SINDotPageControl: SINPageControl {
         for button in buttonArray {
             
             // 更新布局
-            button.snp.makeConstraints { (make) in
+            button.snp.remakeConstraints { (make) in
                 if self.currentPage == button.tag {
                     make.size.equalTo(self.currentIndicatorSize)
                 } else {
@@ -178,6 +179,10 @@ public class SINDotPageControl: SINPageControl {
             
             // 更新圆角
             button.layer.cornerRadius = (self.currentPage == button.tag) ? self.currentIndicatorCorner : self.indicatorCorner
+        }
+        
+        self.containerView.snp.updateConstraints { (make) in
+            make.height.equalTo(max(self.indicatorSize.height, self.currentIndicatorSize.height))
         }
     }
     
@@ -195,20 +200,22 @@ public class SINDotPageControl: SINPageControl {
         self.currentPage = sender.tag
     }
 
-    public func p_setImage(with color: UIColor?, and currentColor: UIColor?) {
+    public func setImage(with color: UIColor?, and currentColor: UIColor?) {
 
         if let color = color {
-            let image = UIImage.sin_image(color: color) ?? nil
-            p_setImage(with: image, and: nil)
+            let image = UIImage.sin_image(color: color, size: self.indicatorSize) ?? nil
+            setImage(with: image, and: nil)
         }
         
         if let currentColor = currentColor {
-            let currentImage = UIImage.sin_image(color: currentColor) ?? nil
-            p_setImage(with: nil, and: currentImage)
+            let currentImage = UIImage.sin_image(color: currentColor, size: self.currentIndicatorSize) ?? nil
+            setImage(with: nil, and: currentImage)
         }
     }
-    
-    fileprivate func p_setImage(with image: UIImage?, and currentImage: UIImage?) {
+}
+
+extension SINDotPageControl {
+    fileprivate func setImage(with image: UIImage?, and currentImage: UIImage?) {
         
         if image == nil && currentImage == nil {
             return
@@ -216,35 +223,31 @@ public class SINDotPageControl: SINPageControl {
         
         // OC里面这里记录了self.indicatorImage和self.currentIndicatorImage, 这里需要吗? 如果需要该怎么记录
         
-        
+
         for button in buttonArray {
             if let indicatorImage = image {
                 button.setImage(indicatorImage, for: .normal)
             }
             if let currentIndicatorImage = currentImage {
-                button.setImage(currentIndicatorImage, for: [.selected,.highlighted])
+                button.setImage(currentIndicatorImage, for: [.selected, .highlighted])
             }
         }
-        
-     
-        
-//        if let indicatorImage = image {
-//            self.indicatorImage = indicatorImage
-//        }
-//
-//        if let currentIndicatorImage = currentImage {
-//            self.currentIndicatorImage = currentIndicatorImage
-//        }
-//
-//        for button in buttonArray {
-//            if let indicatorImage = image {
-//                button.setImage(indicatorImage, for: .normal)
-//            }
-//            if let currentIndicatorImage = currentImage {
-//                button.setImage(currentIndicatorImage, for: [.selected,.highlighted])
-//            }
-//        }
+        //        if let indicatorImage = image {
+        //            self.indicatorImage = indicatorImage
+        //        }
+        //
+        //        if let currentIndicatorImage = currentImage {
+        //            self.currentIndicatorImage = currentIndicatorImage
+        //        }
+        //
+        //        for button in buttonArray {
+        //            if let indicatorImage = image {
+        //                button.setImage(indicatorImage, for: .normal)
+        //            }
+        //            if let currentIndicatorImage = currentImage {
+        //                button.setImage(currentIndicatorImage, for: [.selected,.highlighted])
+        //            }
+        //        }
     }
-    
 }
 
