@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1372C01221883B4700942100 /* BannerCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1372C01121883B4700942100 /* BannerCollectionView.swift */; };
+		1372C01421883B5400942100 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1372C01321883B5400942100 /* BannerView.swift */; };
+		1372C01821883B9F00942100 /* BannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1372C01721883B9F00942100 /* BannerCell.swift */; };
+		1372C01A21883C4400942100 /* BannerLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1372C01921883C4400942100 /* BannerLayoutAttributes.swift */; };
+		1372C01C2188432700942100 /* BannerLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1372C01B2188432700942100 /* BannerLayout.swift */; };
+		1372C0202188A52600942100 /* BannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1372C01F2188A52600942100 /* BannerViewController.swift */; };
 		13C036C7217D7B1B00FBC23E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C036C6217D7B1B00FBC23E /* AppDelegate.swift */; };
 		13C036C9217D7B1B00FBC23E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C036C8217D7B1B00FBC23E /* ViewController.swift */; };
 		13C036CC217D7B1B00FBC23E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13C036CA217D7B1B00FBC23E /* Main.storyboard */; };
@@ -20,6 +26,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1372C01121883B4700942100 /* BannerCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionView.swift; sourceTree = "<group>"; };
+		1372C01321883B5400942100 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
+		1372C01721883B9F00942100 /* BannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCell.swift; sourceTree = "<group>"; };
+		1372C01921883C4400942100 /* BannerLayoutAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerLayoutAttributes.swift; sourceTree = "<group>"; };
+		1372C01B2188432700942100 /* BannerLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerLayout.swift; sourceTree = "<group>"; };
+		1372C01F2188A52600942100 /* BannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerViewController.swift; sourceTree = "<group>"; };
 		13C036C3217D7B1B00FBC23E /* PageControlDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PageControlDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13C036C6217D7B1B00FBC23E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		13C036C8217D7B1B00FBC23E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +60,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1372C01021883B2B00942100 /* Banner */ = {
+			isa = PBXGroup;
+			children = (
+				1372C01121883B4700942100 /* BannerCollectionView.swift */,
+				1372C01321883B5400942100 /* BannerView.swift */,
+				1372C01721883B9F00942100 /* BannerCell.swift */,
+				1372C01B2188432700942100 /* BannerLayout.swift */,
+				1372C01921883C4400942100 /* BannerLayoutAttributes.swift */,
+			);
+			path = Banner;
+			sourceTree = "<group>";
+		};
 		13C036BA217D7B1B00FBC23E = {
 			isa = PBXGroup;
 			children = (
@@ -71,6 +95,8 @@
 			children = (
 				13C036C6217D7B1B00FBC23E /* AppDelegate.swift */,
 				13C036C8217D7B1B00FBC23E /* ViewController.swift */,
+				1372C01F2188A52600942100 /* BannerViewController.swift */,
+				1372C01021883B2B00942100 /* Banner */,
 				13C036D8217D7B3B00FBC23E /* SINPageControl */,
 				13C036CA217D7B1B00FBC23E /* Main.storyboard */,
 				13C036CD217D7B1D00FBC23E /* Assets.xcassets */,
@@ -221,10 +247,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				13C036C9217D7B1B00FBC23E /* ViewController.swift in Sources */,
+				1372C01821883B9F00942100 /* BannerCell.swift in Sources */,
+				1372C01221883B4700942100 /* BannerCollectionView.swift in Sources */,
 				13C036DD217D7B3B00FBC23E /* SINDotPageControl.swift in Sources */,
+				1372C01A21883C4400942100 /* BannerLayoutAttributes.swift in Sources */,
 				13C036C7217D7B1B00FBC23E /* AppDelegate.swift in Sources */,
+				1372C01421883B5400942100 /* BannerView.swift in Sources */,
 				13C036DC217D7B3B00FBC23E /* SINNumericalPageControl.swift in Sources */,
 				13C036DE217D7B3B00FBC23E /* SINPageControl.swift in Sources */,
+				1372C01C2188432700942100 /* BannerLayout.swift in Sources */,
+				1372C0202188A52600942100 /* BannerViewController.swift in Sources */,
 				13F0A543217D7DD600617DFD /* UIImage+Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
